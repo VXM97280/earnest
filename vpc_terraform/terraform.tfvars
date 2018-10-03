@@ -1,5 +1,6 @@
 # vpc cidr block
 vpc_cidr_block = "10.0.0.0/16"
+region = "us-east-1"
 
 # subnets cidr blocks
 public_subnet_cidr_az1 = "10.0.101.0/24"

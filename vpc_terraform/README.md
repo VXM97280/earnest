@@ -4,3 +4,11 @@ setup your aws credentials on your local account
 `https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/setup-credentials.html`
 
 Install terraform 
+1. Install brew if using Mac
+2. brew install terraform
+
+Terraform commands to use:
+Navigate to the terraform folder earnest > vpc_terraform
+1. `AWS_PROFILE=pro terraform init`
+2. `terraform plan`
+3. `terraform apply`

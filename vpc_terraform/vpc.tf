@@ -1,3 +1,7 @@
+provider "aws" {
+  region      = "${var.region}"
+}
+
 # VPC 
 resource "aws_vpc" "earnest_vpc" {
   cidr_block       = "${var.vpc_cidr_block}"
@@ -47,7 +51,7 @@ resource "aws_subnet" "public_az3" {
 # private subnets
 resource "aws_subnet" "private_az1" {
   vpc_id            = "${aws_vpc.earnest_vpc.id}"
-  cidr_block        = "${var.public_subnet_cidr_az1}"
+  cidr_block        = "${var.private_subnet_cidr_az1}"
   availability_zone = "us-east-1a"
 
   tags {
@@ -58,7 +62,7 @@ resource "aws_subnet" "private_az1" {
 
 resource "aws_subnet" "private_az2" {
   vpc_id            = "${aws_vpc.earnest_vpc.id}"
-  cidr_block        = "${var.public_subnet_cidr_az3}"
+  cidr_block        = "${var.private_subnet_cidr_az2}"
   availability_zone = "us-east-1b"
 
   tags {
@@ -69,7 +73,7 @@ resource "aws_subnet" "private_az2" {
 
 resource "aws_subnet" "private_az3" {
   vpc_id            = "${aws_vpc.earnest_vpc.id}"
-  cidr_block        = "${var.public_subnet_cidr_az3}"
+  cidr_block        = "${var.private_subnet_cidr_az3}"
   availability_zone = "us-east-1c"
 
   tags {
