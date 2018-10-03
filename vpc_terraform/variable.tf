@@ -48,3 +48,11 @@ variable "tag_environment" {
   type          = "string"
   description   = "environment (pro, sta, dev, test) information"
 }
+variable "ubuntu_ami_id" {
+  type          = "string"
+  description   = "ami id of the ubuntu machine taken from aws market place"
+}
+variable "ec2_instance_type" {
+  type          = "string"
+  description   = "ec2_instance type"
+}
