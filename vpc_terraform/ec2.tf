@@ -1,13 +1,31 @@
+# # ------------------------------------
+# # test-earnest IAM Role
+# # ------------------------------------
+# resource "aws_iam_instance_profile" "test_earnest_profile" {
+#   name = "${var.tag_environment}-${var.tag_name}"
+#   role = "${aws_iam_role.test_earnest_role.name}"
+# }
+
+# resource "aws_iam_role" "test_earnest_role" {
+#   name               = "${var.tag_environment}-${var.tag_name}"
+#   assume_role_policy = "${data.aws_iam_policy_document.ec2-policy.json}"
+# }
+
+# resource "aws_iam_role_policy_attachment" "test_earnest_access_policy_attachment" {
+#   role       = "${aws_iam_role.test_earnest_role.name}"
+#   policy_arn = "${var.cloudwatch_put_metric_anywhere_arn}"
+# }
+
 # ------------------------------------
 # test-earnest-ec2 launch configuration
-# -------------------------------------
+# # -------------------------------------
 resource "aws_launch_configuration" "test_earnest_ec2_lc" {
-  name                 = "${var.tag_environment}-${var.tag_name}-ec2"
+  name                 = "${var.tag_environment}-${var.tag_name}-ec2-lc"
   image_id             = "${var.ubuntu_ami_id}"
   instance_type        = "${var.ec2_instance_type}"
- // iam_instance_profile = "${aws_iam_instance_profile.test_earnest_profile.name}" # NEED TO CHANGE
+  //iam_instance_profile = "${aws_iam_instance_profile.test_earnest_profile.name}"
   user_data            = "{\"autoScalingGroup\": \"${var.tag_environment}-${var.tag_name}\"}"
-  key_name             = "devopslook" # NEED TO CHANGE
+  key_name             = "test-earnest-vmalladi"
 
   root_block_device = [
     {
@@ -16,18 +34,38 @@ resource "aws_launch_configuration" "test_earnest_ec2_lc" {
     },
   ]
 
-  # security_groups = [
-  #   "${aws_security_group.test_earnest_management.id}", # NEED TO CHANGE
-  #   "${aws_security_group.test_earnest_asg_sg.id}", # NEED TO CHANGE
-  # ]
+  security_groups = [
+    "${aws_security_group.test_earnest_default_sg.id}", 
+    "${aws_security_group.test_earnest_asg_sg.id}", 
+  ]
 }
 
-# ------------------------------------
-# test-earnest-asg auto scalling group
-# -------------------------------------
+resource "aws_launch_configuration" "test_earnest_ec2_lcf" {
+  name                 = "${var.tag_environment}-${var.tag_name}-ec2-20181006"
+  image_id             = "${var.ubuntu_ami_id}"
+  instance_type        = "${var.ec2_instance_type}"
+  //iam_instance_profile = "${aws_iam_instance_profile.test_earnest_profile.name}"
+  user_data            = "{\"autoScalingGroup\": \"${var.tag_environment}-${var.tag_name}\"}"
+  key_name             = "test-earnest-vmalladi"
+
+  root_block_device = [
+    {
+      volume_size = "8"
+      volume_type = "gp2"
+    },
+  ]
+
+  security_groups = [
+    "${aws_security_group.test_earnest_default_sg.id}",
+  ]
+}
+
+# # ------------------------------------
+# # test-earnest-asg auto scalling group
+# # -------------------------------------
 resource "aws_autoscaling_group" "test_earnest_asg" {
   name                = "${var.tag_environment}-${var.tag_name}-asg"
-  vpc_zone_identifier = ["${aws_subnet.private_az1.id}","${aws_subnet.private_az2.id}","${aws_subnet.private_az3.id}"]
+  vpc_zone_identifier = ["${aws_subnet.private_az2.id}","${aws_subnet.private_az3.id}"]
 
   load_balancers       = ["${aws_elb.test_earnest_elb.name}"]
   termination_policies = ["OldestLaunchConfiguration", "OldestInstance"]
@@ -36,14 +74,14 @@ resource "aws_autoscaling_group" "test_earnest_asg" {
   max_size                  = 1
   wait_for_capacity_timeout = 0
 
-  launch_configuration      = "${aws_launch_configuration.test_earnest_ec2_lc.name}"
+  launch_configuration      = "${aws_launch_configuration.test_earnest_ec2_lcf.name}"
   enabled_metrics           = ["GroupInServiceInstances", "GroupTerminatingInstances", "GroupPendingInstances", "GroupDesiredCapacity", "GroupStandbyInstances", "GroupMinSize", "GroupMaxSize", "GroupTotalInstances"]
   health_check_type         = "EC2"
 
   tags = [
     {
       key                 = "Name"
-      value               = "${var.tag_environment}-${var.tag_name}-asg"
+      value               = "${var.tag_environment}-${var.tag_name}-ec2"
       propagate_at_launch = true
     },
     {
@@ -59,7 +97,8 @@ resource "aws_autoscaling_group" "test_earnest_asg" {
 # -------------------------------------
 resource "aws_elb" "test_earnest_elb" {
   name               = "${var.tag_environment}-${var.tag_name}-lb"
-  subnets = ["${aws_subnet.public_az1.id}","${aws_subnet.public_az2.id}","${aws_subnet.public_az3.id}"]
+  subnets = ["${aws_subnet.public_az2.id}","${aws_subnet.public_az3.id}"]
+  security_groups = ["${aws_security_group.test_earnest_elb_sg.id}"]
 
   listener {
     instance_port     = 8000
@@ -92,5 +131,29 @@ resource "aws_elb" "test_earnest_elb" {
   tags {
     Name            = "${var.tag_environment}-${var.tag_name}-lb"
     Terraform       = "true"
+  }
+}
+# ------------------------------------
+# test-earnest-nat nat instance
+# -------------------------------------
+resource "aws_instance" "nat_instance" {
+  ami           = "${var.nat_ubuntu_ami_id}"
+  instance_type = "t1.micro"
+  subnet_id = "${aws_subnet.public_az2.id}"
+  source_dest_check = "false"
+  key_name             = "test-earnest-vmalladi"
+  root_block_device = [
+    {
+      volume_size = "8"
+      volume_type = "gp2"
+    },
+  ]  
+  security_groups = [
+    "${aws_security_group.test_earnest_nat_sg.id}"
+  ]
+
+  tags {
+    Name = "${var.tag_environment}-${var.tag_name}-nat"
+    Terrafrom = "true"
   }
 }

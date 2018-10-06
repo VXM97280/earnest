@@ -1,0 +1,31 @@
+- name: Install pip
+  apt: 
+    name: python-pip 
+    state: present
+
+- name: install docker-py package
+  pip: 
+    name: docker-py
+
+- name: Install nginx Docker
+  docker_image:
+    name: nginx
+    tag: "{{ nginx_version }}"
+
+- name: Check if Nginx conatiner exist
+  docker_container:
+    name: nginx
+    image: nginx
+    state: present
+
+- name: Restart nginx container
+  docker_container:
+    name: nginx
+    image: nginx
+    state: started
+    restart: "true"
+
+- name: Insert Index Page
+  template:
+    src: index.html
+    dest: /usr/share/nginx/html/index.html

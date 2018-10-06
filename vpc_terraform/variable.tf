@@ -56,3 +56,8 @@ variable "ec2_instance_type" {
   type          = "string"
   description   = "ec2_instance type"
 }
+
+variable "nat_ubuntu_ami_id" {
+  type          = "string"
+  description   = "ec2_nat instance type"
+}

@@ -9,6 +9,6 @@ Install terraform
 
 Terraform commands to use:
 Navigate to the terraform folder earnest > vpc_terraform
-1. `AWS_PROFILE=pro terraform init`
-2. `terraform plan`
-3. `terraform apply`
+1. `AWS_PROFILE=earnest terraform init`
+2. `AWS_PROFILE=earnest terraform plan`
+3. `AWS_PROFILE=earnest terraform apply`
