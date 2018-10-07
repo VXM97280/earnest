@@ -162,8 +162,9 @@ CONTAINER ID        IMAGE               COMMAND                  CREATED        
 2c1310898cbd        nginx               "nginx -g 'daemon of…"   21 hours ago        Up 21 hours         0.0.0.0:32768->80/tcp   test_earnest_viswa
 0a516bc9e49f        nginx               "nginx -g 'daemon of…"   25 hours ago        Up 25 minutes       80/tcp                  nginx
 ```
-`curl 10.0.2.167 32768`
 ```
+curl 10.0.2.167 32768
+
 <!DOCTYPE html>
 <html>
 <head>
