@@ -1,5 +1,11 @@
-How to run terraform
+Prerequisites:
+--------------
+1. Creat a new keyvalue pair -- `test-earnest-viswa`. This is used to ssh into server
+2. Create and save AWS_PROFILE keys in `~/.ssh`
 
+
+How to run terraform
+---------------------
 setup your aws credentials on your local account 
 `https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/setup-credentials.html`
 

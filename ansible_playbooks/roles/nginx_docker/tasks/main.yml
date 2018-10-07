@@ -25,7 +25,6 @@
     state: started
     restart: "true"
 
-- name: Insert Index Page
-  template:
-    src: index.html
-    dest: /usr/share/nginx/html/index.html
+- name: Check if container is running
+  shell: docker ps
+

@@ -22,6 +22,21 @@
     state: "latest"
   when: not docker_remove_package
 
+- name: Create "docker" group
+  group:
+    name: "docker"
+    state: present
+  tags:
+    - docker
+
+- name: Add remote "ubuntu" user to "docker" group
+  user:
+    name: "ubuntu"
+    group: "docker"
+    append: yes
+  tags:
+    - docker
+
 - name: Remove Upstart config file
   file:
     path: "/etc/default/docker"

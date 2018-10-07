@@ -135,7 +135,7 @@ resource "aws_elb" "test_earnest_elb" {
 }
 # ------------------------------------
 # test-earnest-nat nat instance
-# -------------------------------------
+# # -------------------------------------
 resource "aws_instance" "nat_instance" {
   ami           = "${var.nat_ubuntu_ami_id}"
   instance_type = "t1.micro"
