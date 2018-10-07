@@ -1,3 +1,8 @@
+variable "region" {
+  type          = "string"
+  description   = "aws region"
+}
+
 variable "vpc_cidr_block" {
   type          = "string"
   description   = "VPC cidr block"
@@ -42,4 +47,17 @@ variable "tag_developer" {
 variable "tag_environment" {
   type          = "string"
   description   = "environment (pro, sta, dev, test) information"
+}
+variable "ubuntu_ami_id" {
+  type          = "string"
+  description   = "ami id of the ubuntu machine taken from aws market place"
+}
+variable "ec2_instance_type" {
+  type          = "string"
+  description   = "ec2_instance type"
+}
+
+variable "nat_ubuntu_ami_id" {
+  type          = "string"
+  description   = "ec2_nat instance type"
 }
