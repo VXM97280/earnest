@@ -18,7 +18,7 @@
 
 # ------------------------------------
 # test-earnest-ec2 launch configuration
-# # -------------------------------------
+# -------------------------------------
 resource "aws_launch_configuration" "test_earnest_ec2_lcf" {
   name                 = "${var.tag_environment}-${var.tag_name}-ec2-20181006"
   image_id             = "${var.ubuntu_ami_id}"
@@ -40,9 +40,9 @@ resource "aws_launch_configuration" "test_earnest_ec2_lcf" {
   ]
 }
 
-# # ------------------------------------
-# # test-earnest-asg auto scalling group
-# # -------------------------------------
+# ------------------------------------
+# test-earnest-asg auto scalling group
+# -------------------------------------
 resource "aws_autoscaling_group" "test_earnest_asg" {
   name                = "${var.tag_environment}-${var.tag_name}-asg"
   vpc_zone_identifier = ["${aws_subnet.private_az2.id}","${aws_subnet.private_az3.id}"]
@@ -99,7 +99,7 @@ resource "aws_elb" "test_earnest_elb" {
     healthy_threshold   = 2
     unhealthy_threshold = 2
     timeout             = 3
-    target              = "HTTP:8000/"
+    target              = "HTTP:80/"
     interval            = 30
   }
 
@@ -113,9 +113,9 @@ resource "aws_elb" "test_earnest_elb" {
     Terraform       = "true"
   }
 }
-# ------------------------------------
+#------------------------------------
 # test-earnest-nat nat instance
-# # -------------------------------------
+#-------------------------------------
 resource "aws_instance" "nat_instance" {
   ami           = "${var.nat_ubuntu_ami_id}"
   instance_type = "t1.micro"
