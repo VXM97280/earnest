@@ -19,27 +19,6 @@
 # ------------------------------------
 # test-earnest-ec2 launch configuration
 # # -------------------------------------
-resource "aws_launch_configuration" "test_earnest_ec2_lc" {
-  name                 = "${var.tag_environment}-${var.tag_name}-ec2-lc"
-  image_id             = "${var.ubuntu_ami_id}"
-  instance_type        = "${var.ec2_instance_type}"
-  //iam_instance_profile = "${aws_iam_instance_profile.test_earnest_profile.name}"
-  user_data            = "{\"autoScalingGroup\": \"${var.tag_environment}-${var.tag_name}\"}"
-  key_name             = "test-earnest-vmalladi"
-
-  root_block_device = [
-    {
-      volume_size = "8"
-      volume_type = "gp2"
-    },
-  ]
-
-  security_groups = [
-    "${aws_security_group.test_earnest_default_sg.id}", 
-    "${aws_security_group.test_earnest_asg_sg.id}", 
-  ]
-}
-
 resource "aws_launch_configuration" "test_earnest_ec2_lcf" {
   name                 = "${var.tag_environment}-${var.tag_name}-ec2-20181006"
   image_id             = "${var.ubuntu_ami_id}"
@@ -57,6 +36,7 @@ resource "aws_launch_configuration" "test_earnest_ec2_lcf" {
 
   security_groups = [
     "${aws_security_group.test_earnest_default_sg.id}",
+    "${aws_security_group.test_earnest_asg_sg.id}", 
   ]
 }
 
