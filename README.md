@@ -76,60 +76,60 @@ To enable debug mode
 Above commands will give output something like below
 ```
 TASK [BOOTSTRAPPING HOST: Ensuring python-lxml is installed (for maven artifact install)] ******************
-ok: [10.0.2.167]
+ok: [10.0.2.232]
 
 TASK [setup] ***********************************************************************************************
-ok: [10.0.2.167]
+ok: [10.0.2.232]
 
 TASK [docker_role : Add Docker's GPG key] ******************************************************************
-ok: [10.0.2.167]
+ok: [10.0.2.232]
 
 TASK [docker_role : Configure upstream APT repository] *****************************************************
-ok: [10.0.2.167]
+ok: [10.0.2.232]
 
 TASK [docker_role : Remove Docker] *************************************************************************
-skipping: [10.0.2.167]
+skipping: [10.0.2.232]
 
 TASK [docker_role : Install Docker] ************************************************************************
-ok: [10.0.2.167]
+ok: [10.0.2.232]
 
 TASK [docker_role : Create "docker" group] *****************************************************************
-ok: [10.0.2.167]
+ok: [10.0.2.232]
 
 TASK [docker_role : Add remote "ubuntu" user to "docker" group] ********************************************
-ok: [10.0.2.167]
+ok: [10.0.2.232]
 
 TASK [docker_role : Remove Upstart config file] ************************************************************
-ok: [10.0.2.167]
+ok: [10.0.2.232]
 
 TASK [docker_role : Ensure systemd directory exists] *******************************************************
-ok: [10.0.2.167]
+ok: [10.0.2.232]
 
 TASK [nginx_docker : Install pip] **************************************************************************
-ok: [10.0.2.167]
+ok: [10.0.2.232]
 
 TASK [nginx_docker : install docker-py package] ************************************************************
-ok: [10.0.2.167]
+ok: [10.0.2.232]
 
 TASK [nginx_docker : Install nginx Docker] *****************************************************************
-ok: [10.0.2.167]
+ok: [10.0.2.232]
 
 TASK [nginx_docker : Check if Nginx conatiner exist] *******************************************************
-ok: [10.0.2.167]
+ok: [10.0.2.232]
 
 TASK [nginx_docker : Restart nginx container] **************************************************************
-changed: [10.0.2.167]
+changed: [10.0.2.232]
 
 TASK [nginx_docker : Check if container is running] ********************************************************
-changed: [10.0.2.167]
+changed: [10.0.2.232]
 
 PLAY RECAP *************************************************************************************************
-10.0.2.167                 : ok=16   changed=3    unreachable=0    failed=0
+10.0.2.232                 : ok=16   changed=3    unreachable=0    failed=0
 ```
 
 Verify if the installation is done:
 ----------------------------------
-1. ssh 10.0.2.167 --> (you should be able to login with this command as this command will take the adavantage of ssh config file)
+1. ssh 10.0.2.232 --> (you should be able to login with this command as this command will take the adavantage of ssh config file)
 2. `sudo systemctl status docker`
 you will see some this like this 
 ```
