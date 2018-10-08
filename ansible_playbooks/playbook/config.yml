@@ -13,7 +13,5 @@
   roles:
     - docker_role
     - nginx_docker
-    # - psm-inf.ansible-role-base
-    # - psm-inf.ansible-role-high-performance
-    # - psm-inf.ansible-role-sudo
+
     
