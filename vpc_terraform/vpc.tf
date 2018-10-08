@@ -26,7 +26,7 @@ resource "aws_vpc" "earnest_vpc" {
 #   availability_zone = "us-west-1a"
 
 #   tags {
-#     Name        = "${var.tag_environment}-${var.tag_name}-public-us-east-1a"
+#     Name        = "${var.tag_environment}-${var.tag_name}-public-us-west-1a"
 #     Developer   = "${var.tag_developer}"
 #   }
 # }
@@ -38,7 +38,7 @@ resource "aws_subnet" "public_az2" {
   map_public_ip_on_launch = "true"
 
   tags {
-    Name        = "${var.tag_environment}-${var.tag_name}-public-us-east-1b"
+    Name        = "${var.tag_environment}-${var.tag_name}-public-us-west-1b"
     Developer   = "${var.tag_developer}"
   }
 }
@@ -50,7 +50,7 @@ resource "aws_subnet" "public_az3" {
   map_public_ip_on_launch = "true"
 
   tags {
-    Name        = "${var.tag_environment}-${var.tag_name}-public-us-east-1c"
+    Name        = "${var.tag_environment}-${var.tag_name}-public-us-west-1c"
     Developer   = "${var.tag_developer}"
   }
 }
@@ -63,7 +63,7 @@ resource "aws_subnet" "public_az3" {
 #   availability_zone = "us-west-1a"
 
 #   tags {
-#     Name        = "${var.tag_environment}-${var.tag_name}-private-us-east-1a"
+#     Name        = "${var.tag_environment}-${var.tag_name}-private-us-west-1a"
 #     Developer   = "${var.tag_developer}"
 #   }
 # }
@@ -74,7 +74,7 @@ resource "aws_subnet" "private_az2" {
   availability_zone = "us-west-1b"
 
   tags {
-    Name        = "${var.tag_environment}-${var.tag_name}-private-us-east-1b"
+    Name        = "${var.tag_environment}-${var.tag_name}-private-us-west-1b"
     Developer   = "${var.tag_developer}"
   }
 }
@@ -85,7 +85,7 @@ resource "aws_subnet" "private_az3" {
   availability_zone = "us-west-1c"
 
   tags {
-    Name        = "${var.tag_environment}-${var.tag_name}-private-us-east-1c"
+    Name        = "${var.tag_environment}-${var.tag_name}-private-us-west-1c"
     Developer   = "${var.tag_developer}"
   }
 }
