@@ -17,6 +17,9 @@ EC2 instance:
 -------------
 Load Balancer (Classic) --> ASG --> EC2 
 
+Click on the below link
+`test-earnest-lb-163051646.us-west-1.elb.amazonaws.com`
+
 Securiy groups:
 ---------------
 1. test-earnest-elb-sg (tcp 80, tcp 443, ALL)
